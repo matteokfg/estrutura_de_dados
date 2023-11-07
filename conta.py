@@ -1,6 +1,7 @@
 # Cadstro de Contas, com opção de consulta de saldo e extrato;
+from connector import Connector
 
-class Conta:
+class Conta(Connector):
     def __init__(self, codigo, codigo_dono, codigo_agencia, tipo, extrato, saldo = 0):
         self.__codigo = codigo
         self.__codigo_dono = codigo_dono
@@ -8,6 +9,7 @@ class Conta:
         self.__tipo = tipo
         self.__extrato = extrato
         self.__saldo = saldo
+        Connector.__init__('bd.json')
 
     @property
     def codigo(self):
