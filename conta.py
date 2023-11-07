@@ -1,12 +1,21 @@
-
+# Cadstro de Contas, com opção de consulta de saldo e extrato;
 
 class Conta:
-    def __init__(self, codigo_dono, codigo_agencia, tipo, extrato, saldo = 0):
+    def __init__(self, codigo, codigo_dono, codigo_agencia, tipo, extrato, saldo = 0):
+        self.__codigo = codigo
         self.__codigo_dono = codigo_dono
         self.__codigo_agencia = codigo_agencia
         self.__tipo = tipo
         self.__extrato = extrato
         self.__saldo = saldo
+
+    @property
+    def codigo(self):
+        return self.__codigo
+
+    @codigo.setter
+    def codigo(self, novo_codigo):
+        self.__codigo = novo_codigo
 
     @property
     def codigo_dono(self):
