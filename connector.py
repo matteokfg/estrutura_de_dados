@@ -20,7 +20,17 @@ class Connector:
             case 'Cliente':
                 pass
             case 'Banco':
-                pass
+                with open(self.path_bd) as bd_json:
+                    data = json.load(bd_json)   #transformo json em dicionario
+                    coluna_banco = data["BD"][tipo] #escolho a coluna
+                    try:
+                        codigo_ultimo = coluna_banco[-1]["Codigo"]  #pego o codigo da ultima conta
+                    except IndexError:
+                        codigo_ultimo = 0
+                    coluna_banco.append({"Codigo": codigo_ultimo + 1, "nome": args[0]})    #salvo a conta no ultimo lugar da coluna
+                with open(self.path_bd, 'w') as bd_json:
+                    json.dump(data, bd_json)    #salvo as alteracoes no bd.json
+                return True
 
             case 'Conta':
                 with open(self.path_bd) as bd_json:
