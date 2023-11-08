@@ -10,7 +10,7 @@ class Movimento(Connector):
         self.__saldo_anterior = saldo_anterior
         self.__saldo_posterior = saldo_posterior
         self.__codigo_movimento_anterior = codigo_movimento_anterior
-        self.__is_saida = is_saida
+        self.__is_saida = is_saida  # e saida(True) ou entrada(False)
         Connector.__init__('bd.json')
 
     @property
