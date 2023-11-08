@@ -19,6 +19,8 @@ class Connector:
                 pass
             case 'Cliente':
                 pass
+            case 'Banco':
+                pass
 
             case 'Conta':
                 with open(self.path_bd) as bd_json:
@@ -47,93 +49,61 @@ class Connector:
                 return True
             case _:
                 return None
-            
+
+    def procurar(self, tipo, codigo):
+        if tipo in ['Banco', 'Agencia', 'Cliente', 'Conta', 'Movimento']:
+            objeto_existente = False
+            with open(self.path_bd) as bd_json:
+                data = json.load(bd_json)   #transformo json em dicionario
+                coluna = data["BD"][tipo] #escolho a coluna
+                for objeto in coluna:
+                    if objeto["Codigo"] == codigo:
+                        objeto_existente = objeto
+                if not objeto_existente:
+                    print("Objeto nao encontrado!")
+            return objeto_existente
+        else:
+            return None
+
     def atualizar(self, tipo, codigo, **kwargs):
-        match tipo:
-            case 'Agencia':
-                pass
-            case 'Cliente':
-                pass
-            case 'Conta':
-                certo = False
-                with open(self.path_bd) as bd_json:
-                    data = json.load(bd_json)
-                    coluna_conta = data["BD"][tipo] #escolho a coluna
-                    lugar = -1
-                    for index, conta in enumerate(coluna_conta):
-                        if conta["Codigo"] == codigo:
-                            lugar = index
-                    if lugar != -1:
-                        for key, value in enumerate(kwargs.items()):
-                            conta[lugar][key] = value
-                        certo = True
-                    else:
-                        print("Objeto nao encontrado!")
-                with open(self.path_bd, 'w') as bd_json:
-                    json.dump(data, bd_json)
-                return certo
+        if tipo in ['Banco', 'Agencia', 'Cliente', 'Conta', 'Movimento']:
+            certo = False
+            with open(self.path_bd) as bd_json:
+                data = json.load(bd_json)   #transformo json em dicionario
+                coluna = data["BD"][tipo] #escolho a coluna
+                lugar = -1
+                for index, objeto in enumerate(coluna):
+                    if objeto["Codigo"] == codigo:
+                        lugar = index
+                if lugar != -1:
+                    for key, value in enumerate(kwargs.items()):
+                        objeto[lugar][key] = value
+                    certo = True
+                else:
+                    print("Objeto nao encontrado!")
+            with open(self.path_bd, 'w') as bd_json:
+                json.dump(data, bd_json)    #salvo as alteracoes no bd.json
+            return certo
+        else:
+            return None
 
-            case 'Movimento':
-                certo = False
-                with open(self.path_bd) as bd_json:
-                    data = json.load(bd_json)
-                    coluna_movimento = data["BD"][tipo] #escolho a coluna
-                    lugar = -1
-                    for index, movimento in enumerate(coluna_movimento):
-                        if movimento["Codigo"] == codigo:
-                            lugar = index
-                    if lugar != -1:
-                        for key, value in enumerate(kwargs.items()):
-                            movimento[lugar][key] = value
-                        certo = True
-                    else:
-                        print("Objeto nao encontrado!")
-                with open(self.path_bd, 'w') as bd_json:
-                    json.dump(data, bd_json)
-                return certo
-            case _:
-                return None
-            
     def deletar(self, tipo, codigo):
-        match tipo:
-            case 'Agencia':
-                pass
-            case 'Cliente':
-                pass
-            case 'Conta':
-                certo = False
-                with open(self.path_bd) as bd_json:
-                    data = json.load(bd_json)
-                    coluna_conta = data["BD"][tipo] #escolho a coluna
-                    lugar = -1
-                    for index, conta in enumerate(coluna_conta):
-                        if conta["Codigo"] == codigo:
-                            lugar = index
-                    if lugar != -1:
-                        coluna_conta.pop(lugar)
-                        certo = True
-                    else:
-                        print("Objeto nao encontrado!")
-                with open(self.path_bd, 'w') as bd_json:
-                    json.dump(data, bd_json)
-                return certo
-
-            case 'Movimento':
-                certo = False
-                with open(self.path_bd) as bd_json:
-                    data = json.load(bd_json)
-                    coluna_movimento = data["BD"][tipo] #escolho a coluna
-                    lugar = -1
-                    for index, movimento in enumerate(coluna_movimento):
-                        if movimento["Codigo"] == codigo:
-                            lugar = index
-                    if lugar != -1:
-                        coluna_movimento.pop(lugar)
-                        certo = True
-                    else:
-                        print("Objeto nao encontrado!")
-                with open(self.path_bd, 'w') as bd_json:
-                    json.dump(data, bd_json)
-                return certo
-            case _:
-                return None
+        if tipo in ['Banco', 'Agencia', 'Cliente', 'Conta', 'Movimento']:
+            certo = False
+            with open(self.path_bd) as bd_json:
+                data = json.load(bd_json)   #transformo json em dicionario
+                coluna = data["BD"][tipo] #escolho a coluna
+                lugar = -1
+                for index, objeto in enumerate(coluna):
+                    if objeto["Codigo"] == codigo:
+                        lugar = index
+                if lugar != -1:
+                    coluna.pop(lugar)
+                    certo = True
+                else:
+                    print("Objeto nao encontrado!")
+            with open(self.path_bd, 'w') as bd_json:
+                json.dump(data, bd_json)    #salvo as alteracoes no bd.json
+            return certo
+        else:
+            return None

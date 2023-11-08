@@ -2,6 +2,7 @@
     "BD":{
             "Cliente": [],
             "Agencia": [],
+            "Banco": [],
             "Conta": [],
             "Movimento": []
         }
