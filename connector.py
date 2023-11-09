@@ -19,6 +19,7 @@ class Connector:
                 pass
             case 'Cliente':
                 pass
+
             case 'Banco':
                 with open(self.path_bd) as bd_json:
                     data = json.load(bd_json)   #transformo json em dicionario
@@ -57,6 +58,7 @@ class Connector:
                 with open(self.path_bd, 'w') as bd_json:
                     json.dump(data, bd_json)    #salvo as alteracoes no bd.json
                 return True
+
             case _:
                 return None
 
