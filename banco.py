@@ -3,9 +3,9 @@ from connector import Connector
 
 class Banco(Connector):
     def __init__(self, codigo, nome):
+        Connector.__init__(self, 'bd.json')
         self.__codigo = codigo
         self.__nome = nome
-        Connector.__init__('bd.json')
 
     @property
     def codigo(self):

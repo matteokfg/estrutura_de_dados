@@ -3,13 +3,13 @@ from connector import Connector
 
 class Conta(Connector):
     def __init__(self, codigo, codigo_dono, codigo_agencia, tipo, extrato, saldo = 0):
+        Connector.__init__(self, 'bd.json')
         self.__codigo = codigo
         self.__codigo_dono = codigo_dono
         self.__codigo_agencia = codigo_agencia
         self.__tipo = tipo
         self.__extrato = extrato
         self.__saldo = saldo
-        Connector.__init__('bd.json')
 
     @property
     def codigo(self):

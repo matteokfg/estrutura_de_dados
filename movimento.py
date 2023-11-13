@@ -4,6 +4,7 @@ from connector import Connector
 
 class Movimento(Connector):
     def __init__(self, codigo, codigo_conta_inicial, codigo_conta_final, saldo_anterior, saldo_posterior, codigo_movimento_anterior, is_saida = False):
+        Connector.__init__(self, 'bd.json')
         self.__codigo = codigo
         self.__codigo_conta_inicial = codigo_conta_inicial
         self.__codigo_conta_final = codigo_conta_final
@@ -11,7 +12,6 @@ class Movimento(Connector):
         self.__saldo_posterior = saldo_posterior
         self.__codigo_movimento_anterior = codigo_movimento_anterior
         self.__is_saida = is_saida  # e saida(True) ou entrada(False)
-        Connector.__init__('bd.json')
 
     @property
     def codigo(self):

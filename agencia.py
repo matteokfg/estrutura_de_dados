@@ -1,17 +1,40 @@
 # melhorar agencia, tirar o cadastro para usar Connector
-class Agencia:
-    def __init__(self, nome, endereco):
-        self._nome = nome
-        self._endereco = endereco
+from connector import Connector
+
+
+class Agencia(Connector):
+    def __init__(self, nome, endereco, codigo_banco):
+        Connector.__init__(self, "bd.json")
+        self.__nome = nome
+        self.__endereco = endereco
+        self.__codigo_banco = codigo_banco
 
     def __str__(self):
         return f"Agência: {self._nome}, Endereço: {self._endereco}"
 
-    def get_nome(self):
-        return self._nome
+    @property
+    def nome(self):
+        return self.__nome
+    
+    @nome.setter
+    def nome(self, novo_nome):
+        self.__nome = novo_nome
 
-    def get_endereco(self):
-        return self._endereco
+    @property
+    def endereco(self):
+        return self.__endereco
+    
+    @endereco.setter
+    def endereco(self, novo_endereco):
+        self.__endereco = novo_endereco
+    
+    @property
+    def codigo_banco(self):
+        return self.__codigo_banco
+    
+    @codigo_banco.setter
+    def codigo_banco(self, novo_codigo_banco):
+        self.__codigo_banco = novo_codigo_banco
 
     def descricao(self):
         return "Agência Genérica"
@@ -24,37 +47,28 @@ class AgenciaSecundaria(Agencia):
     def descricao(self):
         return f"{self.get_nome()} - Agência Secundária"
 
-class CadastroAgencias:
-    def __init__(self):
-        self.agencias = []
-
-    def inserir_agencia(self, agencia):
-        if isinstance(agencia, Agencia):
-            self.agencias.append(agencia)
-            print(f"{agencia.descricao()} inserida com sucesso.")
-        else:
-            print("Erro: O objeto não é do tipo Agência.")
-
-    def listar_agencias(self):
-        if self.agencias:
-            print("Lista de agências:")
-            for agencia in self.agencias:
-                print(agencia)
-        else:
-            print("Nenhuma agência cadastrada.")
 
 
-cadastro_agencias = CadastroAgencias()
+    # def listar_agencias(self):
+    #     if self.agencias:
+    #         print("Lista de agências:")
+    #         for agencia in self.agencias:
+    #             print(agencia)
+    #     else:
+    #         print("Nenhuma agência cadastrada.")
 
-# agencias diferentes
-agencia_principal = AgenciaPrincipal("Agência Central", "Rua Antonio Andrade, 123")
-agencia_secundaria = AgenciaSecundaria("Agência Filial", "Rua Bernardo Ferraz de Almeida, 232")
 
-# colocando agencias no cadastro
-cadastro_agencias.inserir_agencia(agencia_principal)
-cadastro_agencias.inserir_agencia(agencia_secundaria)
+# cadastro_agencias = CadastroAgencias()
 
-# list agencias
-cadastro_agencias.listar_agencias()
+# # agencias diferentes
+# agencia_principal = AgenciaPrincipal("Agência Central", "Rua Antonio Andrade, 123")
+# agencia_secundaria = AgenciaSecundaria("Agência Filial", "Rua Bernardo Ferraz de Almeida, 232")
+
+# # colocando agencias no cadastro
+# cadastro_agencias.inserir_agencia(agencia_principal)
+# cadastro_agencias.inserir_agencia(agencia_secundaria)
+
+# # list agencias
+# cadastro_agencias.listar_agencias()
 
 

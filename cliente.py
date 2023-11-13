@@ -1,67 +1,55 @@
 # melhorar cliente, usar Connector
-class Cliente:
+from connector import Connector
+
+
+class Cliente(Connector):
     def __init__(self, nome, sobrenome, email):
-        self.nome = nome
-        self.sobrenome = sobrenome
-        self.email = email
+        self.__nome = nome
+        self.__sobrenome = sobrenome
+        self.__email = email
 
-class SistemaCadastroClientes:
-    def __init__(self):
-        self.clientes = []
+    @property
+    def nome(self):
+        return self.__nome
+    
+    @nome.setter
+    def nome(self, novo_nome):
+        self.__nome = novo_nome
 
-    def inserir_cliente(self, nome, sobrenome, email):
-        cliente = Cliente(nome, sobrenome, email)
-        self.clientes.append(cliente)
-        print(f"Cliente {nome} {sobrenome} inserido com sucesso.")
+    @property
+    def sobrenome(self):
+        return self.__sobrenome
+    
+    @sobrenome.setter
+    def sobrenome(self, novo_sobrenome):
+        self.__sobrenome = novo_sobrenome
 
-    def listar_clientes(self):
-        if self.clientes:
-            print("Lista de clientes:")
-            for i, cliente in enumerate(self.clientes, 1):
-                print(f"{i}. {cliente.nome} {cliente.sobrenome} - {cliente.email}")
-        else:
-            print("Nenhum cliente cadastrado.")
-
-    def consultar_cliente(self, email):
-        for cliente in self.clientes:
-            if cliente.email == email:
-                print(f"Cliente encontrado: {cliente.nome} {cliente.sobrenome} - {cliente.email}")
-                return cliente
-        print("Cliente não encontrado.")
-        return None
-
-    def alterar_cliente(self, email, novo_nome, novo_sobrenome, novo_email):
-        cliente = self.consultar_cliente(email)
-        if cliente:
-            cliente.nome = novo_nome
-            cliente.sobrenome = novo_sobrenome
-            cliente.email = novo_email
-            print("Cliente alterado com sucesso.")
-
-    def remover_cliente(self, email):
-        cliente = self.consultar_cliente(email)
-        if cliente:
-            self.clientes.remove(cliente)
-            print("Cliente removido com sucesso.")
+    @property
+    def email(self):
+        return self.__email
+    
+    @email.setter
+    def email(self, novo_email):
+        self.__email = novo_email
 
 
-sistema = SistemaCadastroClientes()
+# sistema = SistemaCadastroClientes()
 
 
-sistema.inserir_cliente("Matteo", "Kurpjuweit", "matteo@email.com")
-sistema.inserir_cliente("Ana", "Maiello", "ana@email.com")
+# sistema.inserir_cliente("Matteo", "Kurpjuweit", "matteo@email.com")
+# sistema.inserir_cliente("Ana", "Maiello", "ana@email.com")
 
 
-sistema.listar_clientes()
+# sistema.listar_clientes()
 
-# consulta
-sistema.consultar_cliente("matteo@email.com")
-sistema.alterar_cliente("matteo@email.com", "Matteo", "Fischer", "matteo.fischer@email.com")
+# # consulta
+# sistema.consultar_cliente("matteo@email.com")
+# sistema.alterar_cliente("matteo@email.com", "Matteo", "Fischer", "matteo.fischer@email.com")
 
-# remover 
-sistema.remover_cliente("ana@email.com")
+# # remover 
+# sistema.remover_cliente("ana@email.com")
 
-# lista
-sistema.listar_clientes()
+# # lista
+# sistema.listar_clientes()
 
 
