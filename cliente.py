@@ -4,6 +4,7 @@ from connector import Connector
 
 class Cliente(Connector):
     def __init__(self, nome, sobrenome, email):
+        Connector.__init__(self, "bd.json")
         self.__nome = nome
         self.__sobrenome = sobrenome
         self.__email = email
