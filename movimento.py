@@ -68,3 +68,18 @@ class Movimento(Connector):
     @is_saida.setter
     def is_saida(self, novo_is_saida):
         self.__is_saida = novo_is_saida
+
+    def get_movimento_anteior(self):
+        movimento_anterior = self.procurar('Movimento', self.codigo_movimento_anterior)
+        if movimento_anterior is not None:
+            movimento = Movimento(movimento_anterior['codigo'], 
+                                  movimento_anterior['codigo_conta_inicial'], 
+                                  movimento_anterior['codigo_conta_final'], 
+                                  movimento_anterior['saldo_anterior'],
+                                  movimento_anterior['saldo_posterior'],
+                                  movimento_anterior['codigo_movimento_anterior'],
+                                  movimento_anterior['is_saida'])
+            return movimento
+        else:
+            print("Movimento nao encontrado!")
+            return []
