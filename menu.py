@@ -1,26 +1,24 @@
-def cadastrar_agencia():
-    pass
+from agencia import Agencia
+from banco import Banco
+from cliente import Cliente
+from conta import Conta
+from movimento import Movimento
 
-def alterar_agencia():
-    pass
+# cadastrar_agencia()
 
-def consultar_agencia():
-    pass
+# alterar_agencia()
 
-def remover_agencia():
-    pass
+# consultar_agencia()
 
-def cadastrar_conta():
-    pass
+# remover_agencia()
 
-def consultar_saldo():
-    pass
+# cadastrar_conta()
 
-def consultar_extrato():
-    pass
+# consultar_saldo()
 
-def cadastrar_movimento():
-    pass
+# consultar_extrato()
+
+# cadastrar_movimento()
 
 opcao_principal = None
 while opcao_principal != 0:
@@ -29,6 +27,7 @@ while opcao_principal != 0:
     print("2 - Agências")
     print("3 - Contas")
     print("4 - Movimentos")
+    print("5 - Bancos")
     print("0 - Sair")
 
     opcao_principal = input("Escolha uma opção: ")
@@ -117,6 +116,36 @@ while opcao_principal != 0:
             if opcao_movimento == 1:
                 cadastrar_movimento()
             elif opcao_movimento == 0:
+                break
+            else:
+                print("Opção inválida! Tente novamente.")
+
+    elif opcao_principal == 5:
+        opcao_banco = None
+        while opcao_banco != 0:
+            print("\n==== Menu Bancos ====")
+            print("1 - Cadastrar Banco")
+            print("2 - Alterar Banco")
+            print("3 - Consultar Banco")
+            print("4 - Remover Banco")
+            print("0 - Voltar")
+
+            opcao_banco = input("Escolha uma opção: ")
+
+            if opcao_banco == 1:
+                nome_banco = input("Qual o nome do novo banco?\n  ")
+                banco = Banco(0, nome_banco)
+                if banco.criar("Banco", nome=nome_banco):
+                    print("Banco cadastrado!")
+                else:
+                    print("Erro!")
+            elif opcao_banco == 2:
+                alterar_agencia()
+            elif opcao_banco == 3:
+                consultar_agencia()
+            elif opcao_banco == 4:
+                remover_agencia()
+            elif opcao_banco == 0:
                 break
             else:
                 print("Opção inválida! Tente novamente.")
