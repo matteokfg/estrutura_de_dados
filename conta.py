@@ -2,13 +2,13 @@
 from connector import Connector
 
 class Conta(Connector):
-    def __init__(self, codigo, codigo_dono, codigo_agencia, tipo, extrato, saldo = 0):
+    def __init__(self, codigo, codigo_dono, codigo_agencia, tipo, codigo_ultimo_movimento, saldo = 0):
         Connector.__init__(self, 'bd.json')
         self.__codigo = codigo
         self.__codigo_dono = codigo_dono
         self.__codigo_agencia = codigo_agencia
         self.__tipo = tipo
-        self.__extrato = extrato
+        self.__codigo_ultimo_movimento = codigo_ultimo_movimento
         self.__saldo = saldo
 
     @property
@@ -52,9 +52,9 @@ class Conta(Connector):
         self.__saldo = novo_saldo
 
     @property
-    def extrato(self):
-        return self.__extrato
+    def codigo_ultimo_movimento(self):
+        return self.__codigo_ultimo_movimento
 
-    @extrato.setter
-    def extrato(self, novo_extrato):
-        self.__extrato = novo_extrato
+    @codigo_ultimo_movimento.setter
+    def codigo_ultimo_movimento(self, novo_codigo_ultimo_movimento):
+        self.__codigo_ultimo_movimento = codigo_ultimo_movimento

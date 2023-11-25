@@ -95,7 +95,29 @@ while opcao_principal != 0:
             opcao_conta = input("Escolha uma opção: ")
 
             if opcao_conta == 1:
-                cadastrar_conta()
+                nome_dono_conta = input()
+                nome_agencia = input()
+                tipo_conta = input()
+                codigo_ultimo_movimento_conta = None
+                saldo = 0
+
+                c = Connector('bd.json')
+
+                codigo_dono = c.procurar("Cliente", nome_dono_conta, "nome")["codigo"]
+                codigo_agencia = c.procurar("Agencia", nome_agencia, "nome")["codigo"]
+
+                conta = Conta(0, codigo_dono, codigo_agencia, tipo_conta, codigo_ultimo_movimento_conta)
+                resultado, codigo = conta.criar("Conta", 
+                                                codigo_dono=codigo_dono, 
+                                                codigo_agencia=codigo_agencia, 
+                                                tipo=tipo_conta, 
+                                                codigo_ultimo_movimento=codigo_ultimo_movimento_conta, 
+                                                saldo=saldo)
+                if resultado:
+                    print(f"Conta cadastrada! Com codigo: {codigo}")
+                else:
+                    print("Erro!")
+
             elif opcao_conta == 2:
                 consultar_saldo()
             elif opcao_conta == 3:
@@ -120,6 +142,7 @@ while opcao_principal != 0:
                 pass
             else:
                 print("Opção inválida! Tente novamente.")
+
     #feito
     elif opcao_principal == 5:
         opcao_banco = None

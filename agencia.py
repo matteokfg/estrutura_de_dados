@@ -3,14 +3,23 @@ from connector import Connector
 
 
 class Agencia(Connector):
-    def __init__(self, nome, endereco, codigo_banco):
+    def __init__(self, codigo, nome, endereco, codigo_banco):
         Connector.__init__(self, "bd.json")
+        self.__codigo = codigo
         self.__nome = nome
         self.__endereco = endereco
         self.__codigo_banco = codigo_banco
 
     def __str__(self):
         return f"Agência: {self._nome}, Endereço: {self._endereco}"
+    
+    @property
+    def codigo(self):
+        return self.__codigo
+
+    @codigo.setter
+    def codigo(self, novo_codigo):
+        self.__codigo = novo_codigo
 
     @property
     def nome(self):

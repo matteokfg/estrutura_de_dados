@@ -3,11 +3,21 @@ from connector import Connector
 
 
 class Cliente(Connector):
-    def __init__(self, nome, sobrenome, email):
+    def __init__(self, codigo, nome, sobrenome, email):
         Connector.__init__(self, "bd.json")
+        self.__codigo = codigo
         self.__nome = nome
         self.__sobrenome = sobrenome
         self.__email = email
+
+
+    @property
+    def codigo(self):
+        return self.__codigo
+
+    @codigo.setter
+    def codigo(self, novo_codigo):
+        self.__codigo = novo_codigo
 
     @property
     def nome(self):
