@@ -3,6 +3,7 @@ from banco import Banco
 from cliente import Cliente
 from conta import Conta
 from movimento import Movimento
+from connector import Connector
 
 # cadastrar_agencia()
 
@@ -53,7 +54,7 @@ while opcao_principal != 0:
             elif opcao_cliente == 4:
                 remover_cliente()
             elif opcao_cliente == 0:
-                break
+                pass
             else:
                 print("Opção inválida! Tente novamente.")
 
@@ -78,7 +79,7 @@ while opcao_principal != 0:
             elif opcao_agencia == 4:
                 remover_agencia()
             elif opcao_agencia == 0:
-                break
+                pass
             else:
                 print("Opção inválida! Tente novamente.")
 
@@ -100,7 +101,7 @@ while opcao_principal != 0:
             elif opcao_conta == 3:
                 consultar_extrato()
             elif opcao_conta == 0:
-                break
+                pass
             else:
                 print("Opção inválida! Tente novamente.")
 
@@ -116,7 +117,7 @@ while opcao_principal != 0:
             if opcao_movimento == 1:
                 cadastrar_movimento()
             elif opcao_movimento == 0:
-                break
+                pass
             else:
                 print("Opção inválida! Tente novamente.")
 
@@ -135,18 +136,62 @@ while opcao_principal != 0:
             if opcao_banco == 1:
                 nome_banco = input("Qual o nome do novo banco?\n  ")
                 banco = Banco(0, nome_banco)
-                if banco.criar("Banco", nome=nome_banco):
-                    print("Banco cadastrado!")
+                resultado, codigo = banco.criar("Banco", nome=nome_banco)
+                if resultado:
+                    print(f"Banco cadastrado! Com codigo: {codigo}")
                 else:
                     print("Erro!")
             elif opcao_banco == 2:
-                alterar_agencia()
+                print("Procurar pelo nome ou pelo codigo? ")
+                print("1 - Codigo")
+                print("2 - Nome")
+                print("0 - Sair")
+                opcao = int(input())
+                if opcao == 1:
+                    codigo_banco = input("Qual o codigo do banco? ")
+                    c = Connector('bd.json')
+                    banco = c.procurar("Banco", codigo_banco)
+                    if banco is not None:
+                        print("Valores a serem atualizados:")
+                        novo_nome = input("Novo nome: ")
+                        if novo_nome != "":
+                            ins_banco = Banco(banco["codigo"], banco["nome"])
+                            atualizado = Banco.atualizar("Banco", banco["codigo"], nome=novo_nome)
+                            if atualizado:
+                                print("Banco atualizado!")
+                            else:
+                                print("Erro ao cadastrar")
+                        else:
+                            print("Nome nao pode ser vazio!")
+                    else:
+                        print("Banco nao encontrado!")
+                elif opcao == 2:
+                    nome_banco = input("Qual o nome do banco? ")
+                    c = Connector('bd.json')
+                    banco = c.procurar("Banco", nome_banco, "nome")
+                    if banco is not None:
+                        print("Valores a serem atualizados:")
+                        novo_nome = input("Novo nome: ")
+                        if novo_nome != "":
+                            ins_banco = Banco(banco["codigo"], banco["nome"])
+                            atualizado = Banco.atualizar("Banco", banco["codigo"], nome=novo_nome)
+                            if atualizado:
+                                print("Banco atualizado!")
+                            else:
+                                print("Erro ao cadastrar")
+                        else:
+                            print("Nome nao pode ser vazio!")
+                    else:
+                        print("Banco nao encontrado!")
+                else:
+                    pass
+
             elif opcao_banco == 3:
                 consultar_agencia()
             elif opcao_banco == 4:
                 remover_agencia()
             elif opcao_banco == 0:
-                break
+                pass
             else:
                 print("Opção inválida! Tente novamente.")
 

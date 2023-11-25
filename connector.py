@@ -35,7 +35,7 @@ class Connector:
             tabela_banco.append(kwargs)    #salvo a conta no ultimo lugar da tabela
             with open(self.path_bd, 'w') as bd_json:
                 json.dump(data, bd_json)    #salvo as alteracoes no bd.json
-            return True
+            return True, codigo_ultimo
         else:
             return None
 

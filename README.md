@@ -14,4 +14,15 @@
 
   Validador de JSON: https://jsonlint.com/
 
-  O Banco de Dados vai ser um arquivo JSON, assim, ele terá um objeto chamado "BD". Dentro de "BD" terá quatro objetos: "Cliente", "Agencia", "Conta" e "Movimento". Cada um desses objetos guardará um array com vários obejtos daquele tipo.
+  O Banco de Dados vai ser um arquivo JSON, assim, ele terá um objeto chamado "BD". Dentro de "BD" terá quatro objetos: "Cliente", "Agencia", "Conta" e "Movimento". Cada um desses objetos guardará um array com vários obejtos daquele tipo. Exemplo:
+  ```
+  {
+    "BD":{
+            "Cliente": [],
+            "Agencia": [],
+            "Banco": [],
+            "Conta": [],
+            "Movimento": []
+        }
+  }
+  ```
