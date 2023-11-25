@@ -141,11 +141,11 @@ while opcao_principal != 0:
                     print(f"Banco cadastrado! Com codigo: {codigo}")
                 else:
                     print("Erro!")
+
             elif opcao_banco == 2:
-                print("Procurar pelo nome ou pelo codigo? ")
+                print("Atualizar pelo codigo? ")
                 print("1 - Codigo")
-                print("2 - Nome")
-                print("0 - Sair")
+                print("Outro botao - Sair")
                 opcao = int(input())
                 if opcao == 1:
                     codigo_banco = input("Qual o codigo do banco? ")
@@ -165,38 +165,62 @@ while opcao_principal != 0:
                             print("Nome nao pode ser vazio!")
                     else:
                         print("Banco nao encontrado!")
+                else:
+                    pass
+
+            elif opcao_banco == 3:
+                print("Procurar pelo nome ou pelo codigo? ")
+                print("1 - Codigo")
+                print("2 - Nome")
+                print("Outro botao - Sair")
+                opcao = int(input())
+                if opcao == 1:
+                    codigo_banco = input("Qual o codigo do banco? ")
+                    c = Connector('bd.json')
+                    banco = c.procurar("Banco", codigo_banco)
+                    if banco is not None:
+                        print(f"Info Banco:\n  Codigo: {banco['codigo']}\n  Nome: {banco['nome']}")
+                        pass
+                    else:
+                        print("Banco nao encontrado!")
                 elif opcao == 2:
                     nome_banco = input("Qual o nome do banco? ")
                     c = Connector('bd.json')
                     banco = c.procurar("Banco", nome_banco, "nome")
                     if banco is not None:
-                        print("Valores a serem atualizados:")
-                        novo_nome = input("Novo nome: ")
-                        if novo_nome != "":
-                            ins_banco = Banco(banco["codigo"], banco["nome"])
-                            atualizado = Banco.atualizar("Banco", banco["codigo"], nome=novo_nome)
-                            if atualizado:
-                                print("Banco atualizado!")
-                            else:
-                                print("Erro ao cadastrar")
-                        else:
-                            print("Nome nao pode ser vazio!")
+                        print(f"Info Banco:\n  Codigo: {banco['codigo']}\n  Nome: {banco['nome']}")
+                        pass
                     else:
                         print("Banco nao encontrado!")
                 else:
                     pass
 
-            elif opcao_banco == 3:
-                consultar_agencia()
             elif opcao_banco == 4:
-                remover_agencia()
+                print("Deletar pelo codigo? ")
+                print("1 - Codigo")
+                print("Outro botao - Sair")
+                opcao = int(input())
+                if opcao == 1:
+                    codigo_banco = input("Qual o codigo do banco? ")
+                    c = Connector('bd.json')
+                    deletado = c.deletar("Banco", codigo_banco)
+                    if banco is not None:
+                        print("Banco deletado!")
+                    else:
+                        print("Banco nao encontrado!")
+                else:
+                    pass
+
             elif opcao_banco == 0:
                 pass
+
             else:
                 print("Opção inválida! Tente novamente.")
 
     elif opcao_principal == 0:
-        encerrar_programa = True
+        input("Aperte qualquer botao para sair...")
+        print("Encerrando programa...")
+        print("Encerrado!")
 
     else:
         print("Opção inválida! Tente novamente.")

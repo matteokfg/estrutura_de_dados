@@ -22,3 +22,6 @@ class Banco(Connector):
     @nome.setter
     def nome(self, novo_nome):
         self.__nome = novo_nome
+
+    def __str__(self) -> str:
+        return f"Codigo: {self.__codigo}\n  Nome: {self.__nome}\n"
