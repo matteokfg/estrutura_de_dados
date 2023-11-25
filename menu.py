@@ -120,7 +120,7 @@ while opcao_principal != 0:
                 pass
             else:
                 print("Opção inválida! Tente novamente.")
-
+    #feito
     elif opcao_principal == 5:
         opcao_banco = None
         while opcao_banco != 0:
@@ -216,11 +216,11 @@ while opcao_principal != 0:
 
             else:
                 print("Opção inválida! Tente novamente.")
-
+    #feito
     elif opcao_principal == 0:
         input("Aperte qualquer botao para sair...")
         print("Encerrando programa...")
         print("Encerrado!")
-
+    #feito
     else:
         print("Opção inválida! Tente novamente.")
