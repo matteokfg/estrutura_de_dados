@@ -2,20 +2,9 @@ from agencia import Agencia
 from banco import Banco
 from cliente import Cliente
 from conta import Conta
-from movimento import Movimento
 from connector import Connector
 
-# cadastrar_agencia()
 
-# alterar_agencia()
-
-# consultar_agencia()
-
-# remover_agencia()
-
-# consultar_extrato()
-
-# cadastrar_movimento()
 c = Connector('bd.json')
 opcao_principal = None
 while opcao_principal != 0:
@@ -144,7 +133,7 @@ while opcao_principal != 0:
 
             else:
                 print("Opção inválida! Tente novamente.")
-
+    #feito
     elif opcao_principal == 4:
         opcao_movimento = None
         while opcao_movimento != 0:
@@ -155,12 +144,82 @@ while opcao_principal != 0:
             opcao_movimento = input("Escolha uma opção: ")
 
             if opcao_movimento == 1:
-                cadastrar_movimento()
+                print(" 1 - Pagar\n 2 - Receber\n Outro botao - Sair")
+                tipo_movimentacao = int(input())
+                if tipo_movimentacao == 1:
+                    conta_origem = int(input("Codigo da sua conta: "))
+                    conta_final = int(input("Qual o codigo da conta que voce quer pagar?\n "))
+                    saldo_inicial = c.procurar("Conta", conta_origem)['saldo']
+                    valor_movimentacao = float(input("Valor da transferencia (R$): "))
+                    saldo_final = saldo_inicial - valor_movimentacao
+                    is_saida = True
+
+                    movimentos = c.listar_tabela("Movimento")
+                    ultimo_movimento = None
+                    for movimento in movimentos:
+                        if (movimento['codigo_conta_inicial'] == conta_origem) or (movimento['codigo_conta_final'] == conta_origem):
+                            ultimo_movimento = movimento
+                    codigo_movimento_anterior = movimento['codigo']
+
+                    resultado, codigo = c.criar("Movimento", 
+                                                codigo_conta_inicial=conta_origem, 
+                                                codigo_conta_final=conta_final, 
+                                                saldo_anterior=saldo_inicial, 
+                                                saldo_posterior=saldo_final, 
+                                                codigo_movimento_anterior=codigo_movimento_anterior, 
+                                                is_saida=is_saida)
+                    if resultado:
+                        print(f"Movimento criado! Com codigo: {codigo}")
+                        atualizada_conta_origem = c.atualizar("Conta", conta_origem, saldo=saldo_final)
+                        if atualizada_conta_origem:
+                            atualizada_conta_final = c.atualizar("Conta", conta_final, saldo=c.procurar("Conta", conta_final)['saldo'] + valor_movimentacao)
+                            if not atualizada_conta_final:
+                                print("Erro ao atualizar a conta final")
+                        else:
+                            print("Erro ao atualizar saldo da conta origem")
+                    else:
+                        print("Erro!")
+                elif tipo_movimentacao == 2:
+                    conta_origem = int(input("Qual o codigo da conta que voce quer receber?\n "))
+                    conta_final = int(input("Codigo da sua conta: "))
+                    saldo_inicial = c.procurar("Conta", conta_origem)['saldo']
+                    valor_movimentacao = float(input("Valor da transferencia (R$): "))
+                    saldo_final = saldo_inicial + valor_movimentacao
+                    is_saida = False
+
+                    movimentos = c.listar_tabela("Movimento")
+                    ultimo_movimento = None
+                    for movimento in movimentos:
+                        if (movimento['codigo_conta_inicial'] == conta_origem) or (movimento['codigo_conta_final'] == conta_origem):
+                            ultimo_movimento = movimento
+                    codigo_movimento_anterior = movimento['codigo']
+
+                    resultado, codigo = c.criar("Movimento", 
+                                                codigo_conta_inicial=conta_origem, 
+                                                codigo_conta_final=conta_final, 
+                                                saldo_anterior=saldo_inicial, 
+                                                saldo_posterior=saldo_final, 
+                                                codigo_movimento_anterior=codigo_movimento_anterior, 
+                                                is_saida=is_saida)
+                    if resultado:
+                        print(f"Movimento criado! Com codigo: {codigo}")
+                        atualizada_conta_origem = c.atualizar("Conta", conta_final, saldo=c.procurar("Conta", conta_final)['saldo'] - valor_movimentacao)
+                        if atualizada_conta_origem:
+                            atualizada_conta_final = c.atualizar("Conta", conta_origem, saldo=saldo_final)
+                            if not atualizada_conta_final:
+                                print("Erro ao atualizar a sua final")
+                        else:
+                            print("Erro ao atualizar saldo da conta origem")
+                    else:
+                        print("Erro!")
+                else:
+                    pass
+
             elif opcao_movimento == 0:
                 pass
+
             else:
                 print("Opção inválida! Tente novamente.")
-
     #feito
     elif opcao_principal == 5:
         opcao_banco = None
