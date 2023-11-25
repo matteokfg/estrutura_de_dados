@@ -57,4 +57,4 @@ class Conta(Connector):
 
     @codigo_ultimo_movimento.setter
     def codigo_ultimo_movimento(self, novo_codigo_ultimo_movimento):
-        self.__codigo_ultimo_movimento = codigo_ultimo_movimento
+        self.__codigo_ultimo_movimento = novo_codigo_ultimo_movimento

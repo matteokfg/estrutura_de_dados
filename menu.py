@@ -119,7 +119,21 @@ while opcao_principal != 0:
                     print("Erro!")
 
             elif opcao_conta == 2:
-                consultar_saldo()
+                print("Procurando pelo codigo... ")
+                print("1 - Codigo")
+                print("Outro botao - Sair")
+                opcao = int(input())
+                if opcao == 1:
+                    codigo_conta = input("Qual o codigo da conta? ")
+                    c = Connector('bd.json')
+                    conta = c.procurar("Conta", codigo_conta)
+                    if conta is not None:
+                        print(f"Saldo (R$): {conta['saldo']}")
+                    else:
+                        print("Conta nao encontrada!")
+                else:
+                    pass
+
             elif opcao_conta == 3:
                 consultar_extrato()
             elif opcao_conta == 0:
