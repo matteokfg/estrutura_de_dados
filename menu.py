@@ -13,14 +13,10 @@ from connector import Connector
 
 # remover_agencia()
 
-# cadastrar_conta()
-
-# consultar_saldo()
-
 # consultar_extrato()
 
 # cadastrar_movimento()
-
+c = Connector('bd.json')
 opcao_principal = None
 while opcao_principal != 0:
     print("Banco")
@@ -83,6 +79,7 @@ while opcao_principal != 0:
             else:
                 print("Opção inválida! Tente novamente.")
 
+    #feito
     elif opcao_principal == 3:
         opcao_conta = None
         while opcao_conta != 0:
@@ -100,8 +97,6 @@ while opcao_principal != 0:
                 tipo_conta = input()
                 codigo_ultimo_movimento_conta = None
                 saldo = 0
-
-                c = Connector('bd.json')
 
                 codigo_dono = c.procurar("Cliente", nome_dono_conta, "nome")["codigo"]
                 codigo_agencia = c.procurar("Agencia", nome_agencia, "nome")["codigo"]
@@ -125,7 +120,6 @@ while opcao_principal != 0:
                 opcao = int(input())
                 if opcao == 1:
                     codigo_conta = input("Qual o codigo da conta? ")
-                    c = Connector('bd.json')
                     conta = c.procurar("Conta", codigo_conta)
                     if conta is not None:
                         print(f"Saldo (R$): {conta['saldo']}")
@@ -135,9 +129,19 @@ while opcao_principal != 0:
                     pass
 
             elif opcao_conta == 3:
-                consultar_extrato()
+                codigo_conta = int(input("Qual o codigo da conta? "))
+                movimentos = c.listar_tabela("Movimento")
+
+                print(" Codigo do Movimento  |  codigo_conta_inicial    |   codigo_conta_final  |   saldo_anterior  |   saldo_posterior |   codigo_movimento_anterior   |   is_saida    |")
+                for movimento in movimentos:
+                    if movimento['codigo_movimento_anterior'] == None:
+                        print("---------------------------------------")
+                    if movimento['codigo_conta_inicial'] == codigo_conta or movimento['codigo_conta_final'] == codigo_conta:
+                        print(f"{movimento['codigo']}  |   {movimento['codigo_conta_inicial']}  |   {movimento['codigo_conta_final']}  |   {movimento['saldo_anterior']}  |   {movimento['saldo_posterior']}  | {movimento['codigo_movimento_anterior']}  |   {movimento['is_saida']}  |")
+
             elif opcao_conta == 0:
                 pass
+
             else:
                 print("Opção inválida! Tente novamente.")
 
@@ -186,7 +190,6 @@ while opcao_principal != 0:
                 opcao = int(input())
                 if opcao == 1:
                     codigo_banco = input("Qual o codigo do banco? ")
-                    c = Connector('bd.json')
                     banco = c.procurar("Banco", codigo_banco)
                     if banco is not None:
                         print("Valores a serem atualizados:")
@@ -213,7 +216,6 @@ while opcao_principal != 0:
                 opcao = int(input())
                 if opcao == 1:
                     codigo_banco = input("Qual o codigo do banco? ")
-                    c = Connector('bd.json')
                     banco = c.procurar("Banco", codigo_banco)
                     if banco is not None:
                         print(f"Info Banco:\n  Codigo: {banco['codigo']}\n  Nome: {banco['nome']}")
@@ -239,7 +241,6 @@ while opcao_principal != 0:
                 opcao = int(input())
                 if opcao == 1:
                     codigo_banco = input("Qual o codigo do banco? ")
-                    c = Connector('bd.json')
                     deletado = c.deletar("Banco", codigo_banco)
                     if banco is not None:
                         print("Banco deletado!")
