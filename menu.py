@@ -151,8 +151,8 @@ while opcao_principal != 0:
                         nome_dono_conta = input("Nome dono da conta: ")
                         codigo_agencia = int(input("Nome da agencia: "))
                         tipo_conta = None
-                        while tipo_conta not in ['corrente', 'poupanca', 'investimento']:
-                            tipo_conta = input("Qual o tipo de conta? (Corrente, Poupança, Investimento)\n ").lower()
+                        while tipo_conta not in ['corrente', 'especial']:
+                            tipo_conta = input("Qual o tipo de conta? (Corrente, Especial)\n ").lower()
                         codigo_ultimo_movimento_conta = None
                         saldo = 0
 
