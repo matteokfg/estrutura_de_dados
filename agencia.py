@@ -1,4 +1,3 @@
-# melhorar agencia, tirar o cadastro para usar Connector
 from connector import Connector
 
 

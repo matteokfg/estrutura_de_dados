@@ -1,4 +1,3 @@
-# melhorar cliente, usar Connector
 from connector import Connector
 
 
