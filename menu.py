@@ -42,7 +42,7 @@ while opcao_principal != 0:
                 pass
             else:
                 print("Opção inválida! Tente novamente.")
-    #semi feito
+    #feito
     elif opcao_principal == 2:
         opcao_agencia = None
         while opcao_agencia != 0:
@@ -54,7 +54,7 @@ while opcao_principal != 0:
             print("0 - Voltar")
 
             opcao_agencia = input("Escolha uma opção: ")
-            #feito
+
             if opcao_agencia == 1:
                 nome_agencia = input("Nome da nova agencia: ")
                 endereco_agencia = input("Endereco da nova agencia: ")
@@ -68,7 +68,7 @@ while opcao_principal != 0:
                     print(f"Agencia criada! Com codigo: {codigo}")
                 except:
                     print("Erro!")
-            #feito
+
             elif opcao_agencia == 2:
                 print("Atualizar pelo codigo? ")
                 print("1 - Codigo")
@@ -107,14 +107,32 @@ while opcao_principal != 0:
                     pass
 
             elif opcao_agencia == 3:
-                consultar_agencia()
+                codigo_agencia = int(input("Codigo da agencia a ser consultada: "))
+                agencia = c.procurar("Agencia", codigo_agencia)
+                if agencia is not None:
+                    print("\n  Info Agencia:")
+                    for key, value in agencia.items():
+                        print(f"{key}: {value}")
+                else:
+                    print("Agencia nao encontrada")
+
             elif opcao_agencia == 4:
-                remover_agencia()
+                codigo_agencia = int(input("Codigo da agencia a ser deletada: "))
+                agencia = c.procurar("Agencia", codigo_agencia)
+                if agencia is not None:
+                    deletado = c.deletar("Agencia", codigo_agencia)
+                    if deletado:
+                        print(f"Agencia, codigo {codigo_agencia}, deletada!")
+                    else:
+                        print("Erro ao deletar!")
+                else:
+                    print("Agencia nao encontrada")
+
             elif opcao_agencia == 0:
                 pass
+
             else:
                 print("Opção inválida! Tente novamente.")
-
     #feito
     elif opcao_principal == 3:
         opcao_conta = None
@@ -327,8 +345,9 @@ while opcao_principal != 0:
                     codigo_banco = input("Qual o codigo do banco? ")
                     banco = c.procurar("Banco", codigo_banco)
                     if banco is not None:
-                        print(f"Info Banco:\n  Codigo: {banco['codigo']}\n  Nome: {banco['nome']}")
-                        pass
+                        print("\n  Info Banco:")
+                        for key, value in banco.item():
+                            print(f"{key}: {value}")
                     else:
                         print("Banco nao encontrado!")
                 elif opcao == 2:
@@ -336,8 +355,9 @@ while opcao_principal != 0:
                     c = Connector('bd.json')
                     banco = c.procurar("Banco", nome_banco, "nome")
                     if banco is not None:
-                        print(f"Info Banco:\n  Codigo: {banco['codigo']}\n  Nome: {banco['nome']}")
-                        pass
+                        print("\n  Info Banco:")
+                        for key, value in banco.item():
+                            print(f"{key}: {value}")
                     else:
                         print("Banco nao encontrado!")
                 else:
