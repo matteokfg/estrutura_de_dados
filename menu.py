@@ -42,7 +42,7 @@ while opcao_principal != 0:
                 pass
             else:
                 print("Opção inválida! Tente novamente.")
-
+    #semi feito
     elif opcao_principal == 2:
         opcao_agencia = None
         while opcao_agencia != 0:
@@ -54,11 +54,58 @@ while opcao_principal != 0:
             print("0 - Voltar")
 
             opcao_agencia = input("Escolha uma opção: ")
-
+            #feito
             if opcao_agencia == 1:
-                cadastrar_agencia()
+                nome_agencia = input("Nome da nova agencia: ")
+                endereco_agencia = input("Endereco da nova agencia: ")
+                banco = input("A agencia sera de qual banco (Nome)?\n ")
+
+                codigo_banco = c.procurar("Banco", banco, "nome")['codigo']
+
+                try:
+                    agencia = Agencia(0, nome_agencia, endereco_agencia, codigo_banco)
+                    resultado, codigo = agencia.criar("Agencia", nome=nome_agencia, endereco=endereco_agencia, codigo_banco=codigo_banco)
+                    print(f"Agencia criada! Com codigo: {codigo}")
+                except:
+                    print("Erro!")
+            #feito
             elif opcao_agencia == 2:
-                alterar_agencia()
+                print("Atualizar pelo codigo? ")
+                print("1 - Codigo")
+                print("Outro botao - Sair")
+                opcao = int(input())
+                if opcao == 1:
+                    codigo_agencia = input("Qual o codigo do agencia? ")
+                    agencia = c.procurar("Banco", codigo_agencia)
+                    if agencia is not None:
+                        ins_agencia = Agencia(agencia["codigo"], agencia["nome"], agencia["endereco"], agencia["codigo_banco"])
+
+                        print("Valores a serem atualizados:")
+                        novo_nome = input("Novo nome: ")
+                        novo_endereco = input("Novo endereco: ")
+                        novo_codigo_banco = input("Novo banco (Nome): ")
+
+                        novos = {}
+                        if novo_nome != "":
+                            novos["nome"] = novo_nome
+                        if novo_endereco != "":
+                            novos["endereco"] = novo_endereco
+                        if novo_codigo_banco != "":
+                            novo_codigo_banco = int(novo_codigo_banco)
+                        
+                        if novos != {}:
+                            atualizado = ins_agencia.atualizar("Agencia", agencia["codigo"], **novos)
+                            if atualizado:
+                                print("Agencia atualizada!")
+                            else:
+                                print("Erro ao atualizar")
+                        else:
+                            print("Valores vazios! Impossivel atualizar")
+                    else:
+                        print("Agencia nao encontrada!")
+                else:
+                    pass
+
             elif opcao_agencia == 3:
                 consultar_agencia()
             elif opcao_agencia == 4:
@@ -81,26 +128,28 @@ while opcao_principal != 0:
             opcao_conta = input("Escolha uma opção: ")
 
             if opcao_conta == 1:
-                nome_dono_conta = input()
-                nome_agencia = input()
-                tipo_conta = input()
+                nome_dono_conta = input("Nome dono da conta: ")
+                codigo_agencia = int(input("Nome da agencia: "))
+                tipo_conta = None
+                while tipo_conta not in ['corrente', 'poupanca', 'investimento']:
+                    tipo_conta = input("Qual o tipo de conta? (Corrente, Poupança, Investimento)\n ").lower()
                 codigo_ultimo_movimento_conta = None
                 saldo = 0
 
                 codigo_dono = c.procurar("Cliente", nome_dono_conta, "nome")["codigo"]
-                codigo_agencia = c.procurar("Agencia", nome_agencia, "nome")["codigo"]
 
-                conta = Conta(0, codigo_dono, codigo_agencia, tipo_conta, codigo_ultimo_movimento_conta)
-                resultado, codigo = conta.criar("Conta", 
-                                                codigo_dono=codigo_dono, 
-                                                codigo_agencia=codigo_agencia, 
-                                                tipo=tipo_conta, 
-                                                codigo_ultimo_movimento=codigo_ultimo_movimento_conta, 
-                                                saldo=saldo)
-                if resultado:
+                try:
+                    conta = Conta(0, codigo_dono, codigo_agencia, tipo_conta, codigo_ultimo_movimento_conta)
+                    resultado, codigo = conta.criar("Conta", 
+                                                    codigo_dono=codigo_dono, 
+                                                    codigo_agencia=codigo_agencia, 
+                                                    tipo=tipo_conta, 
+                                                    codigo_ultimo_movimento=codigo_ultimo_movimento_conta, 
+                                                    saldo=saldo)
                     print(f"Conta cadastrada! Com codigo: {codigo}")
-                else:
+                except:
                     print("Erro!")
+
 
             elif opcao_conta == 2:
                 print("Procurando pelo codigo... ")
@@ -235,11 +284,12 @@ while opcao_principal != 0:
 
             if opcao_banco == 1:
                 nome_banco = input("Qual o nome do novo banco?\n  ")
-                banco = Banco(0, nome_banco)
-                resultado, codigo = banco.criar("Banco", nome=nome_banco)
-                if resultado:
+
+                try:
+                    banco = Banco(0, nome_banco)
+                    resultado, codigo = banco.criar("Banco", nome=nome_banco)
                     print(f"Banco cadastrado! Com codigo: {codigo}")
-                else:
+                except:
                     print("Erro!")
 
             elif opcao_banco == 2:
@@ -255,7 +305,7 @@ while opcao_principal != 0:
                         novo_nome = input("Novo nome: ")
                         if novo_nome != "":
                             ins_banco = Banco(banco["codigo"], banco["nome"])
-                            atualizado = Banco.atualizar("Banco", banco["codigo"], nome=novo_nome)
+                            atualizado = ins_banco.atualizar("Banco", banco["codigo"], nome=novo_nome)
                             if atualizado:
                                 print("Banco atualizado!")
                             else:
