@@ -16,7 +16,7 @@ while opcao_principal != 0:
     print("5 - Bancos")
     print("0 - Sair")
 
-    opcao_principal = input("Escolha uma opção: ")
+    opcao_principal = int(input("Escolha uma opção: "))
 
     match opcao_principal:
         case 1:
@@ -29,7 +29,7 @@ while opcao_principal != 0:
                 print("4 - Remover Cliente")
                 print("0 - Voltar")
 
-                opcao_cliente = input("Escolha uma opção: ")
+                opcao_cliente = int(input("Escolha uma opção: "))
                 match opcao_cliente:
                     case 1:
                         nome_cliente = input("Nome do novo cliente: ")
@@ -135,7 +135,7 @@ while opcao_principal != 0:
                 print("4 - Remover Agência")
                 print("0 - Voltar")
 
-                opcao_agencia = input("Escolha uma opção: ")
+                opcao_agencia = int(input("Escolha uma opção: "))
                 match opcao_agencia:
                     case 1:
                         nome_agencia = input("Nome da nova agencia: ")
@@ -226,7 +226,7 @@ while opcao_principal != 0:
                 print("3 - Consultar Extrato")
                 print("0 - Voltar")
 
-                opcao_conta = input("Escolha uma opção: ")
+                opcao_conta = int(input("Escolha uma opção: "))
                 match opcao_conta:
                     case 1:
                         nome_dono_conta = input("Nome dono da conta: ")
@@ -290,7 +290,7 @@ while opcao_principal != 0:
                 print("1 - Cadastrar Movimento")
                 print("0 - Voltar")
 
-                opcao_movimento = input("Escolha uma opção: ")
+                opcao_movimento = int(input("Escolha uma opção: "))
                 match opcao_movimento:
                     case 1:
                         print(" 1 - Pagar\n 2 - Receber\n Outro botao - Sair")
@@ -380,7 +380,7 @@ while opcao_principal != 0:
                 print("4 - Remover Banco")
                 print("0 - Voltar")
 
-                opcao_banco = input("Escolha uma opção: ")
+                opcao_banco = int(input("Escolha uma opção: "))
                 match opcao_banco:
                     case 1:
                         nome_banco = input("Qual o nome do novo banco?\n  ")
