@@ -239,12 +239,12 @@ while opcao_principal != "0":
 
                         codigo_dono = c.procurar("Cliente", nome_dono_conta, "nome")["codigo"]
 
-                        # try:
-                        conta = Conta(0, codigo_dono, codigo_agencia, tipo_conta, codigo_ultimo_movimento_conta, saldo)
-                        resultado, codigo = conta.criar("Conta", codigo_dono=codigo_dono, codigo_agencia=codigo_agencia, tipo_conta=tipo_conta, codigo_ultimo_movimento=codigo_ultimo_movimento_conta, saldo=saldo)
-                        print(f"Conta cadastrada! Com codigo: {codigo}")
-                        # except:
-                            # print("Erro!")
+                        try:
+                            conta = Conta(0, codigo_dono, codigo_agencia, tipo_conta, codigo_ultimo_movimento_conta, saldo)
+                            resultado, codigo = conta.criar("Conta", codigo_dono=codigo_dono, codigo_agencia=codigo_agencia, tipo_conta=tipo_conta, codigo_ultimo_movimento=codigo_ultimo_movimento_conta, saldo=saldo)
+                            print(f"Conta cadastrada! Com codigo: {codigo}")
+                        except:
+                            print("Erro!")
 
                     case "2":
                         print("Procurando pelo codigo... ")
