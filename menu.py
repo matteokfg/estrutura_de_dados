@@ -51,7 +51,7 @@ while opcao_principal != 0:
                         print("Outro botao - Sair")
                         opcao = int(input())
                         if opcao == 1:
-                            codigo_cliente = input("Qual o codigo do cliente? ")
+                            codigo_cliente = int(input("Qual o codigo do cliente? "))
                             cliente = c.procurar("Cliente", codigo_cliente)
                             if agencia is not None:
                                 ins_cliente = Cliente(cliente["codigo"], cliente["nome"], cliente["sobrenome"], cliente["email"])
@@ -157,7 +157,7 @@ while opcao_principal != 0:
                         print("Outro botao - Sair")
                         opcao = int(input())
                         if opcao == 1:
-                            codigo_agencia = input("Qual o codigo do agencia? ")
+                            codigo_agencia = int(input("Qual o codigo do agencia? "))
                             agencia = c.procurar("Banco", codigo_agencia)
                             if agencia is not None:
                                 ins_agencia = Agencia(agencia["codigo"], agencia["nome"], agencia["endereco"], agencia["codigo_banco"])
@@ -257,7 +257,7 @@ while opcao_principal != 0:
                         print("Outro botao - Sair")
                         opcao = int(input())
                         if opcao == 1:
-                            codigo_conta = input("Qual o codigo da conta? ")
+                            codigo_conta = int(input("Qual o codigo da conta? "))
                             conta = c.procurar("Conta", codigo_conta)
                             if conta is not None:
                                 print(f"Saldo (R$): {conta['saldo']}")
@@ -398,7 +398,7 @@ while opcao_principal != 0:
                         print("Outro botao - Sair")
                         opcao = int(input())
                         if opcao == 1:
-                            codigo_banco = input("Qual o codigo do banco? ")
+                            codigo_banco = int(input("Qual o codigo do banco? "))
                             banco = c.procurar("Banco", codigo_banco)
                             if banco is not None:
                                 print("Valores a serem atualizados:")
@@ -424,11 +424,11 @@ while opcao_principal != 0:
                         print("Outro botao - Sair")
                         opcao = int(input())
                         if opcao == 1:
-                            codigo_banco = input("Qual o codigo do banco? ")
+                            codigo_banco = int(input("Qual o codigo do banco? "))
                             banco = c.procurar("Banco", codigo_banco)
                             if banco is not None:
                                 print("\n  Info Banco:")
-                                for key, value in banco.item():
+                                for key, value in banco.items():
                                     print(f"{key}: {value}")
                             else:
                                 print("Banco nao encontrado!")
@@ -451,7 +451,7 @@ while opcao_principal != 0:
                         print("Outro botao - Sair")
                         opcao = int(input())
                         if opcao == 1:
-                            codigo_banco = input("Qual o codigo do banco? ")
+                            codigo_banco = int(input("Qual o codigo do banco? "))
                             deletado = c.deletar("Banco", codigo_banco)
                             if banco is not None:
                                 print("Banco deletado!")

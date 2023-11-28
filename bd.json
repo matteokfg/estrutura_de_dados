@@ -1,9 +1,1 @@
-{
-    "BD":{
-            "Cliente": [],
-            "Agencia": [],
-            "Banco": [],
-            "Conta": [],
-            "Movimento": []
-        }
-}
+{"BD": {"Cliente": [], "Agencia": [], "Banco": [], "Conta": [], "Movimento": []}}
