@@ -7,7 +7,7 @@ from connector import Connector
 
 c = Connector('bd.json')
 opcao_principal = None
-while opcao_principal != 0:
+while opcao_principal != "0":
     print("Banco")
     print("1 - Clientes")
     print("2 - Agências")
@@ -21,7 +21,7 @@ while opcao_principal != 0:
     match opcao_principal:
         case "1":
             opcao_cliente = None
-            while opcao_cliente != 0:
+            while opcao_cliente != "0":
                 print("Menu Clientes")
                 print("1 - Cadastrar Cliente")
                 print("2 - Alterar Cliente")
@@ -83,7 +83,7 @@ while opcao_principal != 0:
                             pass
 
                     case "3":
-                        modo_procura = input("Como voce quer procurar o cliente?\n 1 - Nome\n 2 - Email")
+                        modo_procura = input("Como voce quer procurar o cliente?\n 1 - Nome\n 2 - Email\n ")
 
                         if modo_procura == "1":
                             nome_cliente = input("Nome do cliente: ")
@@ -127,7 +127,7 @@ while opcao_principal != 0:
 
         case "2":
             opcao_agencia = None
-            while opcao_agencia != 0:
+            while opcao_agencia != "0":
                 print("\n==== Menu Agências ====")
                 print("1 - Cadastrar Agência")
                 print("2 - Alterar Agência")
@@ -219,7 +219,7 @@ while opcao_principal != 0:
 
         case "3":
             opcao_conta = None
-            while opcao_conta != 0:
+            while opcao_conta != "0":
                 print("\n==== Menu Contas ====")
                 print("1 - Cadastrar Conta")
                 print("2 - Consultar Saldo")
@@ -230,26 +230,21 @@ while opcao_principal != 0:
                 match opcao_conta:
                     case "1":
                         nome_dono_conta = input("Nome dono da conta: ")
-                        codigo_agencia = int(input("Nome da agencia: "))
+                        codigo_agencia = int(input("Codigo da agencia: "))
                         tipo_conta = None
                         while tipo_conta not in ['corrente', 'especial']:
                             tipo_conta = input("Qual o tipo de conta? (Corrente, Especial)\n ").lower()
                         codigo_ultimo_movimento_conta = None
-                        saldo = 0
+                        saldo = float(input("Saldo inicial: "))
 
                         codigo_dono = c.procurar("Cliente", nome_dono_conta, "nome")["codigo"]
 
-                        try:
-                            conta = Conta(0, codigo_dono, codigo_agencia, tipo_conta, codigo_ultimo_movimento_conta)
-                            resultado, codigo = conta.criar("Conta", 
-                                                            codigo_dono=codigo_dono, 
-                                                            codigo_agencia=codigo_agencia, 
-                                                            tipo=tipo_conta, 
-                                                            codigo_ultimo_movimento=codigo_ultimo_movimento_conta, 
-                                                            saldo=saldo)
-                            print(f"Conta cadastrada! Com codigo: {codigo}")
-                        except:
-                            print("Erro!")
+                        # try:
+                        conta = Conta(0, codigo_dono, codigo_agencia, tipo_conta, codigo_ultimo_movimento_conta, saldo)
+                        resultado, codigo = conta.criar("Conta", codigo_dono=codigo_dono, codigo_agencia=codigo_agencia, tipo_conta=tipo_conta, codigo_ultimo_movimento=codigo_ultimo_movimento_conta, saldo=saldo)
+                        print(f"Conta cadastrada! Com codigo: {codigo}")
+                        # except:
+                            # print("Erro!")
 
                     case "2":
                         print("Procurando pelo codigo... ")
@@ -285,7 +280,7 @@ while opcao_principal != 0:
 
         case "4":
             opcao_movimento = None
-            while opcao_movimento != 0:
+            while opcao_movimento != "0":
                 print("\n==== Menu Movimentos ====")
                 print("1 - Cadastrar Movimento")
                 print("0 - Voltar")
@@ -304,11 +299,14 @@ while opcao_principal != 0:
                             is_saida = True
 
                             movimentos = c.listar_tabela("Movimento")
-                            ultimo_movimento = None
-                            for movimento in movimentos:
-                                if (movimento['codigo_conta_inicial'] == conta_origem) or (movimento['codigo_conta_final'] == conta_origem):
-                                    ultimo_movimento = movimento
-                            codigo_movimento_anterior = movimento['codigo']
+                            if movimentos != []:
+                                ultimo_movimento = None
+                                for movimento in movimentos:
+                                    if (movimento['codigo_conta_inicial'] == conta_origem) or (movimento['codigo_conta_final'] == conta_origem):
+                                        ultimo_movimento = movimento
+                                codigo_movimento_anterior = ultimo_movimento['codigo']
+                            else:
+                                codigo_movimento_anterior = None
 
                             resultado, codigo = c.criar("Movimento", 
                                                         codigo_conta_inicial=conta_origem, 
@@ -372,7 +370,7 @@ while opcao_principal != 0:
 
         case "5":
             opcao_banco = None
-            while opcao_banco != 0:
+            while opcao_banco != "0":
                 print("\n==== Menu Bancos ====")
                 print("1 - Cadastrar Banco")
                 print("2 - Alterar Banco")
@@ -438,7 +436,7 @@ while opcao_principal != 0:
                             banco = c.procurar("Banco", nome_banco, "nome")
                             if banco is not None:
                                 print("\n  Info Banco:")
-                                for key, value in banco.item():
+                                for key, value in banco.items():
                                     print(f"{key}: {value}")
                             else:
                                 print("Banco nao encontrado!")
