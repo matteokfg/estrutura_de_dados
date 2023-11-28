@@ -41,25 +41,3 @@ class Cliente(Connector):
     @email.setter
     def email(self, novo_email):
         self.__email = novo_email
-
-
-# sistema = SistemaCadastroClientes()
-
-
-# sistema.inserir_cliente("Matteo", "Kurpjuweit", "matteo@email.com")
-# sistema.inserir_cliente("Ana", "Maiello", "ana@email.com")
-
-
-# sistema.listar_clientes()
-
-# # consulta
-# sistema.consultar_cliente("matteo@email.com")
-# sistema.alterar_cliente("matteo@email.com", "Matteo", "Fischer", "matteo.fischer@email.com")
-
-# # remover 
-# sistema.remover_cliente("ana@email.com")
-
-# # lista
-# sistema.listar_clientes()
-
-
