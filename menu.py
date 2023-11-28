@@ -30,21 +30,101 @@ while opcao_principal != 0:
                 print("0 - Voltar")
 
                 opcao_cliente = input("Escolha uma opção: ")
+                match opcao_cliente:
+                    case 1:
+                        nome_cliente = input("Nome do novo cliente: ")
+                        sobrenome_cliente = input("Sobrenome do novo cliente: ")
+                        email_cliente = input("Email do novo cliente: ")
+                        while("@" not in email_cliente):
+                            email_cliente = input("Email incorreto. Email do novo cliente: ")
 
-                if opcao_cliente == 1:
-                    cadastrar_cliente()
-                elif opcao_cliente == 2:
-                    alterar_cliente()
-                elif opcao_cliente == 3:
-                    consultar_cliente()
-                elif opcao_cliente == 4:
-                    remover_cliente()
-                elif opcao_cliente == 0:
-                    pass
-                else:
-                    print("Opção inválida! Tente novamente.")
+                        try:
+                            cliente = Cliente(0, nome_cliente, sobrenome_cliente, email_cliente)
+                            resultado, codigo = cliente.criar("Cliente", nome=nome_cliente, sobrenome=sobrenome_cliente, email=email_cliente)
+                            print(f"Cliente criado! Com codigo: {codigo}")
+                        except:
+                            print("Erro!")
 
-        #feito
+                    case 2:
+                        print("Atualizar pelo codigo? ")
+                        print("1 - Codigo")
+                        print("Outro botao - Sair")
+                        opcao = int(input())
+                        if opcao == 1:
+                            codigo_cliente = input("Qual o codigo do cliente? ")
+                            cliente = c.procurar("Cliente", codigo_cliente)
+                            if agencia is not None:
+                                ins_cliente = Cliente(cliente["codigo"], cliente["nome"], cliente["sobrenome"], cliente["email"])
+
+                                print("Valores a serem atualizados:")
+                                novo_nome = input("Novo nome: ")
+                                novo_sobrenome = input("Novo sobrenome: ")
+                                novo_email = input("Novo email: ")
+
+                                novos = {}
+                                if novo_nome != "":
+                                    novos["nome"] = novo_nome
+                                if novo_sobrenome != "":
+                                    novos["sobrenome"] = novo_sobrenome
+                                if novo_email != "":
+                                    novos["email"] = novo_email
+                                
+                                if novos != {}:
+                                    atualizado = ins_cliente.atualizar("Cliente", cliente["codigo"], **novos)
+                                    if atualizado:
+                                        print("Cliente atualizado!")
+                                    else:
+                                        print("Erro ao atualizar")
+                                else:
+                                    print("Valores vazios! Impossivel atualizar")
+                            else:
+                                print("Cliente nao encontrado!")
+                        else:
+                            pass
+
+                    case 3:
+                        modo_procura = input("Como voce quer procurar o cliente?\n 1 - Nome\n 2 - Email")
+
+                        if modo_procura == "1":
+                            nome_cliente = input("Nome do cliente: ")
+                            cliente = c.procurar("Cliente", nome_cliente, "nome")
+                            if cliente is not None:
+                                print("\n  Info Cliente:")
+                                for key, value in cliente.items():
+                                    print(f"{key}: {value}")
+                            else:
+                                print("Cliente nao encontrado")
+                        elif modo_procura == "2":
+                            email_cliente = input("Email do cliente: ")
+                            cliente = c.procurar("Cliente", email_cliente, "email")
+                            if cliente is not None:
+                                print("\n  Info Cliente:")
+                                for key, value in cliente.items():
+                                    print(f"{key}: {value}")
+                            else:
+                                print("Cliente nao encontrado")
+                        else:
+                            print("Opcao invalida.")
+
+                    case 4:
+                        codigo_cliente = int(input("Qual o codigo do cliente a ser removido: "))
+
+                        cliente = c.procurar("Cliente", codigo_cliente)
+                        if cliente is not None:
+                            deletado = c.deletar("Cliente", codigo_cliente)
+                            if deletado:
+                                print(f"Cliente, codigo {codigo_cliente}, deletado!")
+                            else:
+                                print("Erro ao deletar!")
+                        else:
+                            print("Cliente nao encontrado")
+
+                    case 0:
+                        pass
+
+                    case _:
+                        print("Opção inválida! Tente novamente.")
+
         case 2:
             opcao_agencia = None
             while opcao_agencia != 0:
@@ -94,6 +174,7 @@ while opcao_principal != 0:
                                     novos["endereco"] = novo_endereco
                                 if novo_codigo_banco != "":
                                     novo_codigo_banco = int(novo_codigo_banco)
+                                    novos["codigo_banco"] = novo_codigo_banco
                                 
                                 if novos != {}:
                                     atualizado = ins_agencia.atualizar("Agencia", agencia["codigo"], **novos)
@@ -135,7 +216,7 @@ while opcao_principal != 0:
 
                     case _:
                         print("Opção inválida! Tente novamente.")
-        #feito
+
         case 3:
             opcao_conta = None
             while opcao_conta != 0:
@@ -201,7 +282,7 @@ while opcao_principal != 0:
 
                     case _:
                         print("Opção inválida! Tente novamente.")
-        #feito
+
         case 4:
             opcao_movimento = None
             while opcao_movimento != 0:
@@ -288,7 +369,7 @@ while opcao_principal != 0:
 
                     case _:
                         print("Opção inválida! Tente novamente.")
-        #feito
+
         case 5:
             opcao_banco = None
             while opcao_banco != 0:
@@ -384,11 +465,11 @@ while opcao_principal != 0:
 
                     case _:
                         print("Opção inválida! Tente novamente.")
-        #feito
+
         case 0:
             input("Aperte qualquer botao para sair...")
             print("Encerrando programa...")
             print("Encerrado!")
-        #feito
+
         case _:
             print("Opção inválida! Tente novamente.")
