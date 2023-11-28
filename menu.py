@@ -16,10 +16,10 @@ while opcao_principal != 0:
     print("5 - Bancos")
     print("0 - Sair")
 
-    opcao_principal = int(input("Escolha uma opção: "))
+    opcao_principal = input("Escolha uma opção: ")
 
     match opcao_principal:
-        case 1:
+        case "1":
             opcao_cliente = None
             while opcao_cliente != 0:
                 print("Menu Clientes")
@@ -29,9 +29,9 @@ while opcao_principal != 0:
                 print("4 - Remover Cliente")
                 print("0 - Voltar")
 
-                opcao_cliente = int(input("Escolha uma opção: "))
+                opcao_cliente = input("Escolha uma opção: ")
                 match opcao_cliente:
-                    case 1:
+                    case "1":
                         nome_cliente = input("Nome do novo cliente: ")
                         sobrenome_cliente = input("Sobrenome do novo cliente: ")
                         email_cliente = input("Email do novo cliente: ")
@@ -45,7 +45,7 @@ while opcao_principal != 0:
                         except:
                             print("Erro!")
 
-                    case 2:
+                    case "2":
                         print("Atualizar pelo codigo? ")
                         print("1 - Codigo")
                         print("Outro botao - Sair")
@@ -82,7 +82,7 @@ while opcao_principal != 0:
                         else:
                             pass
 
-                    case 3:
+                    case "3":
                         modo_procura = input("Como voce quer procurar o cliente?\n 1 - Nome\n 2 - Email")
 
                         if modo_procura == "1":
@@ -106,7 +106,7 @@ while opcao_principal != 0:
                         else:
                             print("Opcao invalida.")
 
-                    case 4:
+                    case "4":
                         codigo_cliente = int(input("Qual o codigo do cliente a ser removido: "))
 
                         cliente = c.procurar("Cliente", codigo_cliente)
@@ -119,13 +119,13 @@ while opcao_principal != 0:
                         else:
                             print("Cliente nao encontrado")
 
-                    case 0:
+                    case "0":
                         pass
 
                     case _:
                         print("Opção inválida! Tente novamente.")
 
-        case 2:
+        case "2":
             opcao_agencia = None
             while opcao_agencia != 0:
                 print("\n==== Menu Agências ====")
@@ -135,9 +135,9 @@ while opcao_principal != 0:
                 print("4 - Remover Agência")
                 print("0 - Voltar")
 
-                opcao_agencia = int(input("Escolha uma opção: "))
+                opcao_agencia = input("Escolha uma opção: ")
                 match opcao_agencia:
-                    case 1:
+                    case "1":
                         nome_agencia = input("Nome da nova agencia: ")
                         endereco_agencia = input("Endereco da nova agencia: ")
                         banco = input("A agencia sera de qual banco (Nome)?\n ")
@@ -151,7 +151,7 @@ while opcao_principal != 0:
                         except:
                             print("Erro!")
 
-                    case 2:
+                    case "2":
                         print("Atualizar pelo codigo? ")
                         print("1 - Codigo")
                         print("Outro botao - Sair")
@@ -189,7 +189,7 @@ while opcao_principal != 0:
                         else:
                             pass
 
-                    case 3:
+                    case "3":
                         codigo_agencia = int(input("Codigo da agencia a ser consultada: "))
                         agencia = c.procurar("Agencia", codigo_agencia)
                         if agencia is not None:
@@ -199,7 +199,7 @@ while opcao_principal != 0:
                         else:
                             print("Agencia nao encontrada")
 
-                    case 4:
+                    case "4":
                         codigo_agencia = int(input("Codigo da agencia a ser deletada: "))
                         agencia = c.procurar("Agencia", codigo_agencia)
                         if agencia is not None:
@@ -211,13 +211,13 @@ while opcao_principal != 0:
                         else:
                             print("Agencia nao encontrada")
 
-                    case 0:
+                    case "0":
                         pass
 
                     case _:
                         print("Opção inválida! Tente novamente.")
 
-        case 3:
+        case "3":
             opcao_conta = None
             while opcao_conta != 0:
                 print("\n==== Menu Contas ====")
@@ -226,9 +226,9 @@ while opcao_principal != 0:
                 print("3 - Consultar Extrato")
                 print("0 - Voltar")
 
-                opcao_conta = int(input("Escolha uma opção: "))
+                opcao_conta = input("Escolha uma opção: ")
                 match opcao_conta:
-                    case 1:
+                    case "1":
                         nome_dono_conta = input("Nome dono da conta: ")
                         codigo_agencia = int(input("Nome da agencia: "))
                         tipo_conta = None
@@ -251,7 +251,7 @@ while opcao_principal != 0:
                         except:
                             print("Erro!")
 
-                    case 2:
+                    case "2":
                         print("Procurando pelo codigo... ")
                         print("1 - Codigo")
                         print("Outro botao - Sair")
@@ -266,7 +266,7 @@ while opcao_principal != 0:
                         else:
                             pass
 
-                    case 3:
+                    case "3":
                         codigo_conta = int(input("Qual o codigo da conta? "))
                         movimentos = c.listar_tabela("Movimento")
 
@@ -277,22 +277,22 @@ while opcao_principal != 0:
                             if movimento['codigo_conta_inicial'] == codigo_conta or movimento['codigo_conta_final'] == codigo_conta:
                                 print(f"{movimento['codigo']}  |   {movimento['codigo_conta_inicial']}  |   {movimento['codigo_conta_final']}  |   {movimento['saldo_anterior']}  |   {movimento['saldo_posterior']}  | {movimento['codigo_movimento_anterior']}  |   {movimento['is_saida']}  |")
 
-                    case 0:
+                    case "0":
                         pass
 
                     case _:
                         print("Opção inválida! Tente novamente.")
 
-        case 4:
+        case "4":
             opcao_movimento = None
             while opcao_movimento != 0:
                 print("\n==== Menu Movimentos ====")
                 print("1 - Cadastrar Movimento")
                 print("0 - Voltar")
 
-                opcao_movimento = int(input("Escolha uma opção: "))
+                opcao_movimento = input("Escolha uma opção: ")
                 match opcao_movimento:
-                    case 1:
+                    case "1":
                         print(" 1 - Pagar\n 2 - Receber\n Outro botao - Sair")
                         tipo_movimentacao = int(input())
                         if tipo_movimentacao == 1:
@@ -364,13 +364,13 @@ while opcao_principal != 0:
                         else:
                             pass
 
-                    case 0:
+                    case "0":
                         pass
 
                     case _:
                         print("Opção inválida! Tente novamente.")
 
-        case 5:
+        case "5":
             opcao_banco = None
             while opcao_banco != 0:
                 print("\n==== Menu Bancos ====")
@@ -380,9 +380,9 @@ while opcao_principal != 0:
                 print("4 - Remover Banco")
                 print("0 - Voltar")
 
-                opcao_banco = int(input("Escolha uma opção: "))
+                opcao_banco = input("Escolha uma opção: ")
                 match opcao_banco:
-                    case 1:
+                    case "1":
                         nome_banco = input("Qual o nome do novo banco?\n  ")
 
                         try:
@@ -392,7 +392,7 @@ while opcao_principal != 0:
                         except:
                             print("Erro!")
 
-                    case 2:
+                    case "2":
                         print("Atualizar pelo codigo? ")
                         print("1 - Codigo")
                         print("Outro botao - Sair")
@@ -417,7 +417,7 @@ while opcao_principal != 0:
                         else:
                             pass
 
-                    case 3:
+                    case "3":
                         print("Procurar pelo nome ou pelo codigo? ")
                         print("1 - Codigo")
                         print("2 - Nome")
@@ -445,7 +445,7 @@ while opcao_principal != 0:
                         else:
                             pass
 
-                    case 4:
+                    case "4":
                         print("Deletar pelo codigo? ")
                         print("1 - Codigo")
                         print("Outro botao - Sair")
@@ -460,13 +460,13 @@ while opcao_principal != 0:
                         else:
                             pass
 
-                    case 0:
+                    case "0":
                         pass
 
                     case _:
                         print("Opção inválida! Tente novamente.")
 
-        case 0:
+        case "0":
             input("Aperte qualquer botao para sair...")
             print("Encerrando programa...")
             print("Encerrado!")
